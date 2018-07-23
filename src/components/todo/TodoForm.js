@@ -4,10 +4,11 @@ import React from 'react'
 const propTypes = {
   currentTodo: PropTypes.string.isRequired,
   handleInputChange: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
 }
 
 export const TodoForm = (props) => (
-  <form>
+  <form onSubmit={props.handleSubmit}>
     <input
       type="test"
       onChange={props.handleInputChange}
