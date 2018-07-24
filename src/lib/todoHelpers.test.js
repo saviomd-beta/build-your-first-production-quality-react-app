@@ -73,3 +73,14 @@ test('updateTodo should update an item by id', () => {
   const result = updateTodo(startTodos, updatedTodo)
   expect(result).toEqual(expectedTodos)
 })
+
+test('updateTodo should not mutate the original array', () => {
+  const startTodos = [
+    {id:1, name: 'one', isComplete: false},
+    {id:2, name: 'two', isComplete: false},
+    {id:3, name: 'three', isComplete: false}
+  ]
+  const updatedTodo = {id:2, name: 'two', isComplete: true}
+  const result = updateTodo(startTodos, updatedTodo)
+  expect(result).not.toBe(startTodos)
+})
