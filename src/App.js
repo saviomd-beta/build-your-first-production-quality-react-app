@@ -4,7 +4,7 @@ import './App.css';
 import PropTypes from 'prop-types'
 import {Footer, TodoForm, TodoList} from './components/todo'
 import {addTodo, filterTodos, findById, generateId, removeTodo, toggleTodo, updateTodo} from './lib/todoHelpers'
-import {createTodo, loadTodos, saveTodo} from './lib/todoService'
+import {createTodo, destroyTodo, loadTodos, saveTodo} from './lib/todoService'
 import {partial, pipe} from './lib/utils'
 
 class App extends Component {
@@ -36,6 +36,8 @@ class App extends Component {
     this.setState({
       todos: updatedTodos
     })
+    destroyTodo(id)
+      .then(() => this.showTempMessage('Todo removed'))
   }
   handleSubmit = (evt) => {
     evt.preventDefault()

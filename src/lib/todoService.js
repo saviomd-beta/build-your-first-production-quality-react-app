@@ -26,3 +26,13 @@ export const saveTodo = (todo) => {
     method: 'PUT',
   }).then(res => res.json())
 }
+
+export const destroyTodo = (id) => {
+  return fetch(`${baseUrl}/${id}`, {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    method: 'DELETE',
+  })
+}
