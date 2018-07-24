@@ -4,7 +4,7 @@ import './App.css';
 import PropTypes from 'prop-types'
 import {Footer, TodoForm, TodoList} from './components/todo'
 import {addTodo, filterTodos, findById, generateId, removeTodo, toggleTodo, updateTodo} from './lib/todoHelpers'
-import {createTodo, loadTodos} from './lib/todoService'
+import {createTodo, loadTodos, saveTodo} from './lib/todoService'
 import {partial, pipe} from './lib/utils'
 
 class App extends Component {
@@ -55,14 +55,18 @@ class App extends Component {
       .then(() => this.showTempMessage('Todo added'))
   }
   handleToggle = (id) => {
+    const getToggleTodo = pipe(findById, toggleTodo)
+    const updated = getToggleTodo(id, this.state.todos)
     // const todo = findById(id, this.state.todos)
     // const toggled = toggleTodo(todo)
     // const updatedTodos = updateTodo(this.state.todos, toggled)
-    const getUpdatedTodos = pipe(findById, toggleTodo, partial(updateTodo, this.state.todos))
-    const updatedTodos = getUpdatedTodos(id, this.state.todos)
+    const getUpdatedTodos = partial(updateTodo, this.state.todos)
+    const updatedTodos = getUpdatedTodos(updated)
     this.setState({
       todos: updatedTodos
     })
+    saveTodo(updated)
+      .then(() => this.showTempMessage('Todo updated'))
   }
   showTempMessage = (msg) => {
     this.setState({message: msg})

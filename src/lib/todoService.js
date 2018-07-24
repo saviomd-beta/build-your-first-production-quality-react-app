@@ -15,3 +15,14 @@ export const createTodo = (todo) => {
     method: 'POST',
   }).then(res => res.json())
 }
+
+export const saveTodo = (todo) => {
+  return fetch(`${baseUrl}/${todo.id}`, {
+    body: JSON.stringify(todo),
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    method: 'PUT',
+  }).then(res => res.json())
+}
