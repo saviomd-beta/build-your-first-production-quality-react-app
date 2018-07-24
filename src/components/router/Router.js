@@ -24,6 +24,13 @@ export class Router extends Component {
       route: this.state.route,
     }
   }
+  componentDidMount() {
+    window.onpopstate = () => {
+      this.setState({
+        route: getCurrentPath(),
+      })
+    }
+  }
   render () {
     return <div>{this.props.children}</div>
   }
