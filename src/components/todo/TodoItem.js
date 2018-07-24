@@ -9,9 +9,13 @@ const propTypes = {
 }
 
 export const TodoItem = (props) => {
+  const handleRemove = partial(props.handleRemove, props.id)
   const handleToggle = partial(props.handleToggle,  props.id)
   return (
     <li>
+      <span className="delete-item">
+        <a href="#" onClick={handleRemove}>x</a>
+      </span>
       <input
         checked={props.isComplete}
         onChange={handleToggle}
