@@ -4,7 +4,7 @@ import './App.css';
 import PropTypes from 'prop-types'
 import {Footer, TodoForm, TodoList} from './components/todo'
 import {addTodo, filterTodos, findById, generateId, removeTodo, toggleTodo, updateTodo} from './lib/todoHelpers'
-import {loadTodos} from './lib/todoService'
+import {createTodo, loadTodos} from './lib/todoService'
 import {partial, pipe} from './lib/utils'
 
 class App extends Component {
@@ -51,6 +51,8 @@ class App extends Component {
       errorMessage: '',
       todos: updatedTodos,
     })
+    createTodo(newTodo)
+      .then(() => console.log('Todo added'))
   }
   handleToggle = (id) => {
     // const todo = findById(id, this.state.todos)
@@ -65,7 +67,6 @@ class App extends Component {
   render() {
     const submitHandler = this.state.currentTodo ? this.handleSubmit : this.handleEmptySubmit
     const displayTodos = filterTodos(this.state.todos, this.context.route)
-    console.log(this.context.route);
     return (
       <div className="App">
         <header className="App-header">
